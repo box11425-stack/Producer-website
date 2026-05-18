@@ -673,10 +673,54 @@ footer {
   .testimonials-grid { grid-template-columns: 1fr; }
   .faq-grid { grid-template-columns: 1fr; gap: 2rem; }
   .faq-heading-sticky { position: static; }
-  .hero-photo-wrap { display: none; }
+
+  /* Hero mobile */
+  #hero {
+    padding: 6.5rem 6% 4rem;
+    align-items: center;
+    text-align: center;
+  }
+  .rec-badge { justify-content: center; }
+  .hero-subtitle { max-width: 100%; }
+  .hero-tagline { max-width: 100%; }
+  .hero-cta { align-self: center; }
+
+  .hero-photo-wrap {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: clamp(160px, 48vw, 220px);
+    margin: 0 auto 2.2rem;
+    order: -1;
+  }
+  .hero-experience-badge {
+    right: -18%;
+    font-size: 0.7rem;
+    padding: 0.45rem 0.85rem;
+  }
 }
+
 @media (max-width: 600px) {
   .clients-box { grid-template-columns: 1fr; }
+
+  #hero { padding: 6rem 5% 3.5rem; }
+
+  .hero-photo-wrap {
+    width: clamp(140px, 52vw, 190px);
+    margin-bottom: 1.8rem;
+  }
+  .hero-experience-badge {
+    right: -20%;
+    font-size: 0.66rem;
+    padding: 0.4rem 0.75rem;
+  }
+  .hero-subtitle {
+    font-size: clamp(1.7rem, 9vw, 2.6rem);
+    line-height: 1;
+  }
+  .hero-tagline { font-size: 0.88rem; }
+  .hero-cta { padding: 0.9rem 2rem; font-size: 0.88rem; }
 }
 </style>
 </head>
