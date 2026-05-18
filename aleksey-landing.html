@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aleksey — Медиапродюсер</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #090909;
+  --surface: #111111;
+  --surface2: #181818;
+  --electric: #00CFFF;
+  --electric-dim: rgba(0, 207, 255, 0.10);
+  --white: #F0F0F0;
+  --muted: #777777;
+  --border: #1E1E1E;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.25rem 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(9,9,9,0.93);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.08em;
+  color: var(--white);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--electric); }
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.4rem;
+  background: var(--electric);
+  color: #000;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: opacity 0.2s;
+}
+.nav-cta:hover { opacity: 0.82; }
+.nav-cta svg { width: 15px; height: 15px; fill: currentColor; }
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 5% 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.rec-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.73rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+}
+.rec-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #FF3B30;
+  animation: blink 2.2s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 3rem);
+  line-height: 1;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+  color: var(--muted);
+}
+.hero-name span { color: var(--white); }
+
+.hero-subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4.2vw, 5rem);
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+  color: var(--white);
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  max-width: 620px;
+}
+.hero-subtitle em {
+  color: var(--electric);
+  font-style: normal;
+}
+
+.hero-tagline {
+  font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+  font-weight: 300;
+  color: #AAAAAA;
+  max-width: 460px;
+  line-height: 1.65;
+  margin-bottom: 3rem;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2.5rem;
+  background: var(--electric);
+  color: #000;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: background 0.2s;
+  align-self: flex-start;
+}
+.hero-cta:hover { background: #ffffff; }
+.hero-cta svg { width: 18px; height: 18px; fill: currentColor; }
+
+.hero-bg-word {
+  position: absolute;
+  right: -1%;
+  bottom: 3%;
+  font-family: var(--font-display);
+  font-size: clamp(9rem, 22vw, 24rem);
+  color: rgba(255,255,255,0.018);
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+  letter-spacing: 0.05em;
+}
+
+.hero-line {
+  position: absolute;
+  left: 5%; right: 5%;
+  bottom: 0;
+  height: 1px;
+  background: var(--border);
+}
+
+.hero-photo-wrap {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(180px, 21vw, 320px);
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-photo {
+  display: block;
+  width: 100%;
+  height: clamp(300px, 60vh, 580px);
+  object-fit: cover;
+  object-position: 55% 4%;
+  filter: contrast(1.07) brightness(0.93) saturate(0.85);
+}
+.hero-photo-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top,    var(--bg) 0%, rgba(9,9,9,0) 50%),
+    linear-gradient(to right,  var(--bg) 0%, rgba(9,9,9,0) 28%),
+    linear-gradient(to bottom, var(--bg) 0%, rgba(9,9,9,0) 38%),
+    linear-gradient(to left,   var(--bg) 0%, rgba(9,9,9,0) 65%);
+}
+
+/* ─── SECTION SHARED ─── */
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6.5rem 5%;
+}
+
+.section-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--electric);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.section-label::after {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 1px;
+  background: var(--electric);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+}
+
+/* ─── ABOUT ─── */
+#about {
+  border-top: 1px solid var(--border);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+.about-text {
+  color: #AAAAAA;
+  font-size: 0.97rem;
+  line-height: 1.85;
+  margin-top: 1.5rem;
+}
+.about-text + .about-text { margin-top: 1rem; }
+
+.clients-box {
+  margin-top: 3.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+.client-cell {
+  background: var(--surface);
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+.client-cell-icon {
+  font-size: 1.5rem;
+  color: var(--electric);
+  margin-bottom: 0.6rem;
+  display: block;
+}
+.client-cell-title {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 0.35rem;
+}
+.client-cell-desc {
+  font-size: 0.73rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ─── CASES ─── */
+#cases { border-top: 1px solid var(--border); }
+
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.case-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2rem 1.75rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.case-card:hover { border-color: rgba(0,207,255,0.5); }
+
+.case-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--electric);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+.case-card:hover::before { transform: scaleX(1); }
+
+.case-num {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  color: rgba(0,207,255,0.12);
+  line-height: 1;
+  margin-bottom: 1.25rem;
+}
+.case-tag {
+  display: inline-block;
+  padding: 0.22rem 0.7rem;
+  background: var(--electric-dim);
+  color: var(--electric);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.case-title {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.45;
+  margin-bottom: 0.85rem;
+  color: var(--white);
+}
+.case-body {
+  font-size: 0.83rem;
+  color: #888888;
+  line-height: 1.7;
+  margin-bottom: 1.75rem;
+}
+.case-stat {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--electric);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+.case-stat-label {
+  font-size: 0.73rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+
+/* ─── WHY ─── */
+#why { border-top: 1px solid var(--border); }
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 5rem;
+  align-items: start;
+}
+.why-list { margin-top: 0.5rem; }
+.why-item {
+  padding: 1.4rem 0;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+.why-item:first-child { border-top: 1px solid var(--border); }
+.why-num {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--electric);
+  padding-top: 0.05rem;
+}
+.why-title {
+  font-weight: 500;
+  font-size: 0.97rem;
+  margin-bottom: 0.3rem;
+}
+.why-desc {
+  font-size: 0.85rem;
+  color: #888888;
+  line-height: 1.7;
+}
+
+/* ─── TESTIMONIALS ─── */
+#testimonials { border-top: 1px solid var(--border); }
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.testimonial-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2rem 1.75rem;
+}
+.testimonial-quote-mark {
+  font-family: Georgia, serif;
+  font-size: 3rem;
+  color: var(--electric);
+  line-height: 1;
+  margin-bottom: 0.75rem;
+  opacity: 0.7;
+}
+.testimonial-text {
+  font-size: 0.88rem;
+  color: #AAAAAA;
+  line-height: 1.75;
+  font-style: italic;
+  margin-bottom: 1.75rem;
+}
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.testimonial-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--electric-dim);
+  border: 1px solid rgba(0,207,255,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--electric);
+  flex-shrink: 0;
+}
+.testimonial-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--white);
+}
+.testimonial-role {
+  font-size: 0.73rem;
+  color: var(--muted);
+}
+
+/* ─── FAQ ─── */
+#faq { border-top: 1px solid var(--border); }
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 5rem;
+  align-items: start;
+}
+.faq-heading-sticky {
+  position: sticky;
+  top: 7rem;
+}
+.faq-list { margin-top: 0.5rem; }
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-item:first-child { border-top: 1px solid var(--border); }
+
+.faq-q {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.35rem 0;
+  cursor: pointer;
+  font-size: 0.93rem;
+  font-weight: 500;
+  gap: 1rem;
+  transition: color 0.2s;
+  user-select: none;
+}
+.faq-q:hover { color: var(--electric); }
+
+.faq-plus {
+  width: 20px; height: 20px;
+  flex-shrink: 0;
+  position: relative;
+  color: var(--electric);
+}
+.faq-plus::before, .faq-plus::after {
+  content: '';
+  position: absolute;
+  background: currentColor;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.faq-plus::before { width: 12px; height: 1px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+.faq-plus::after  { width: 1px; height: 12px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+.faq-item.open .faq-plus::after { opacity: 0; transform: translate(-50%,-50%) rotate(90deg); }
+
+.faq-a {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.38s ease;
+}
+.faq-a-inner {
+  padding-bottom: 1.35rem;
+  font-size: 0.87rem;
+  color: #888888;
+  line-height: 1.8;
+}
+
+/* ─── CONTACT ─── */
+#contact {
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.contact-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 7rem 5%;
+}
+.contact-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--electric);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+.contact-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--electric);
+  display: inline-block;
+  animation: blink 2.2s infinite;
+}
+.contact-heading {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 9rem);
+  letter-spacing: 0.02em;
+  line-height: 0.9;
+  margin-bottom: 1.75rem;
+}
+.contact-sub {
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 3rem;
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.1rem 3rem;
+  background: var(--electric);
+  color: #000;
+  font-weight: 500;
+  font-size: 1rem;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: background 0.2s;
+}
+.contact-btn:hover { background: #ffffff; }
+.contact-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border);
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.75rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  letter-spacing: 0.1em;
+  color: #333333;
+}
+.footer-logo span { color: var(--electric); opacity: 0.5; }
+.footer-copy {
+  font-size: 0.73rem;
+  color: #333333;
+}
+
+/* ─── FADE-IN ON SCROLL ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ─── HERO ENTER ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+.rec-badge  { animation: fadeUp 0.7s 0.1s both; }
+.hero-name  { animation: fadeUp 0.7s 0.2s both; }
+.hero-subtitle { animation: fadeUp 0.7s 0.3s both; }
+.hero-tagline  { animation: fadeUp 0.7s 0.4s both; }
+.hero-cta      { animation: fadeUp 0.7s 0.55s both; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .cases-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .faq-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .faq-heading-sticky { position: static; }
+  .hero-photo-wrap { display: none; }
+}
+@media (max-width: 600px) {
+  .clients-box { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <ul class="nav-links">
+    <li><a href="#about">Обо мне</a></li>
+    <li><a href="#cases">Кейсы</a></li>
+    <li><a href="#why">Почему я</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="https://t.me/Aleksvasiutin" target="_blank" class="nav-cta">
+    <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/></svg>
+    Telegram
+  </a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="rec-badge">
+    <span class="rec-dot"></span>
+    Медиапродюсер
+  </div>
+  <h1 class="hero-name">ALEKSEY <span>VASYUTIN</span></h1>
+  <p class="hero-subtitle">ОТ ХАОСА — К ЧЁТКОЙ СТРАТЕГИИ <em>МАСШТАБИРОВАНИЯ</em></p>
+  <p class="hero-tagline">Выстраиваю медиасистему для экспертов и бизнеса — от концепции и первого контента до узнаваемого бренда и стабильного дохода.</p>
+  <a href="https://t.me/Aleksvasiutin" target="_blank" class="hero-cta">
+    <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/></svg>
+    Написать в Telegram
+  </a>
+  <div class="hero-photo-wrap">
+    <img src="photo.png" alt="Aleksey" class="hero-photo">
+  </div>
+  <div class="hero-bg-word">MEDIA</div>
+  <div class="hero-line"></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="section-label">01 · Обо мне</div>
+        <h2 class="section-title">ОТ ИДЕИ<br>ДО ЭКРАНА</h2>
+        <p class="about-text">Я медиапродюсер. Работаю с теми, кто хочет выстроить сильный личный бренд, масштабировать бизнес через контент или стать заметной фигурой в своей нише.</p>
+        <p class="about-text">Придумываю форматы, которые работают. Создаю стратегии, которые масштабируются. Нахожу способы монетизации, о которых вы ещё не думали.</p>
+      </div>
+      <div class="reveal">
+        <div class="section-label">Работаю с</div>
+        <div class="clients-box">
+          <div class="client-cell">
+            <span class="client-cell-icon">✦</span>
+            <div class="client-cell-title">Эксперты</div>
+            <div class="client-cell-desc">С нуля до первой аудитории и монетизации</div>
+          </div>
+          <div class="client-cell">
+            <span class="client-cell-icon">◈</span>
+            <div class="client-cell-title">Блогеры</div>
+            <div class="client-cell-desc">Новые форматы, рост, рекламодатели</div>
+          </div>
+          <div class="client-cell">
+            <span class="client-cell-icon">◻</span>
+            <div class="client-cell-title">Бизнес</div>
+            <div class="client-cell-desc">Медиастратегия, узнаваемость, продажи</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section id="cases">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="section-label">02 · Кейсы</div>
+      <h2 class="section-title">РЕЗУЛЬТАТЫ<br>ГОВОРЯТ</h2>
+    </div>
+    <div class="cases-grid">
+
+      <div class="case-card reveal">
+        <div class="case-num">01</div>
+        <span class="case-tag">Эксперт · с нуля</span>
+        <h3 class="case-title">Психолог без аудитории → узнаваемый медиаэксперт</h3>
+        <p class="case-body">Разработали концепцию канала, формат видео и контент-план. Выстроили визуальный стиль и первые коллаборации.</p>
+        <div class="case-stat">50K+</div>
+        <div class="case-stat-label">подписчиков за 6 месяцев</div>
+      </div>
+
+      <div class="case-card reveal">
+        <div class="case-num">02</div>
+        <span class="case-tag">Бизнес · медиастратегия</span>
+        <h3 class="case-title">Компания в сфере недвижимости → вирусный YouTube-канал</h3>
+        <p class="case-body">Запустили авторское шоу о рынке. Вирусные ролики привлекли органический трафик и новых клиентов без рекламного бюджета.</p>
+        <div class="case-stat">×3</div>
+        <div class="case-stat-label">рост узнаваемости бренда</div>
+      </div>
+
+      <div class="case-card reveal">
+        <div class="case-num">03</div>
+        <span class="case-tag">Блогер · монетизация</span>
+        <h3 class="case-title">Блогер 500K — новая стратегия и рост дохода</h3>
+        <p class="case-body">Пересмотрели форматы, нашли незанятые ниши и выстроили систему работы с рекламодателями.</p>
+        <div class="case-stat">×2</div>
+        <div class="case-stat-label">доход за 3 месяца</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="wrap">
+    <div class="why-grid">
+      <div class="reveal">
+        <div class="section-label">03 · Почему я</div>
+        <h2 class="section-title">ПОЧЕМУ<br>РАБОТАЕТ</h2>
+      </div>
+      <div class="why-list reveal">
+        <div class="why-item">
+          <span class="why-num">01</span>
+          <div>
+            <div class="why-title">Результат, а не контент ради контента</div>
+            <div class="why-desc">Каждое решение направлено на ваши цели — рост аудитории, узнаваемость или доход. Без воды.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <span class="why-num">02</span>
+          <div>
+            <div class="why-title">Работаю на всех этапах</div>
+            <div class="why-desc">От концепции и первого поста до запуска шоу и построения отношений с рекламодателями.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <span class="why-num">03</span>
+          <div>
+            <div class="why-title">Понимаю алгоритмы и людей</div>
+            <div class="why-desc">Знаю, как работают платформы. Но главное — понимаю, что заставляет зрителей возвращаться.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <span class="why-num">04</span>
+          <div>
+            <div class="why-title">Без шаблонов и копипаста</div>
+            <div class="why-desc">Каждый проект разрабатывается с нуля. Ваша история, ваша аудитория, ваш формат.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <span class="why-num">05</span>
+          <div>
+            <div class="why-title">Нахожу то, чего вы не замечаете</div>
+            <div class="why-desc">Новые форматы, незанятые ниши, нестандартные пути монетизации — то, что не видно изнутри.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="section-label">04 · Отзывы</div>
+      <h2 class="section-title">ЧТО ГОВОРЯТ<br>КЛИЕНТЫ</h2>
+    </div>
+    <div class="testimonials-grid">
+
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote-mark">"</div>
+        <p class="testimonial-text">До работы с Алексеем я три года собирался начать. За два месяца появился канал, стратегия и первые рекламные контракты. Он увидел потенциал там, где я видел только хаос.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">ДС</div>
+          <div>
+            <div class="testimonial-name">Дмитрий С.</div>
+            <div class="testimonial-role">Финансовый эксперт</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote-mark">"</div>
+        <p class="testimonial-text">Алексей помог нам выйти за пределы классической рекламы. Мы запустили шоу, которое стало полноценным медиапродуктом. Клиенты приходят сами, потому что знают нас по контенту.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">АМ</div>
+          <div>
+            <div class="testimonial-name">Анна М.</div>
+            <div class="testimonial-role">Владелец агентства недвижимости</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote-mark">"</div>
+        <p class="testimonial-text">У меня была большая аудитория, но я чувствовала, что упираюсь в потолок. Алексей нашёл новые форматы и перестроил работу с партнёрами. За квартал доход вырос в два раза.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">МК</div>
+          <div>
+            <div class="testimonial-name">Мария К.</div>
+            <div class="testimonial-role">Блогер, 500K подписчиков</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="faq-grid">
+      <div class="faq-heading-sticky reveal">
+        <div class="section-label">05 · Вопросы</div>
+        <h2 class="section-title">ЧАСТЫЕ<br>ВОПРОСЫ</h2>
+      </div>
+      <div class="faq-list reveal">
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>С чего начинается работа?</span>
+            <span class="faq-plus"></span>
+          </div>
+          <div class="faq-a">
+            <p class="faq-a-inner">Начинаем с бесплатного разговора в Telegram — вы рассказываете о себе и задаче, я задаю вопросы. Если вижу, что могу помочь, предлагаю конкретный план работы.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>Работаете ли вы с теми, кто начинает с нуля?</span>
+            <span class="faq-plus"></span>
+          </div>
+          <div class="faq-a">
+            <p class="faq-a-inner">Да. Часть моих клиентов приходит без подписчиков и контента. Именно с нуля я помогаю выбрать нишу, формат, платформу и выстроить стратегию запуска.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>Сколько времени до первых результатов?</span>
+            <span class="faq-plus"></span>
+          </div>
+          <div class="faq-a">
+            <p class="faq-a-inner">Зависит от задачи и стартовых условий. Стратегия и концепция — 1–2 недели. Первые заметные результаты по аудитории и монетизации — от 2 до 6 месяцев при регулярной работе.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>Нужно ли иметь готовый контент?</span>
+            <span class="faq-plus"></span>
+          </div>
+          <div class="faq-a">
+            <p class="faq-a-inner">Нет. Мы вместе определяем формат и темы. Я помогаю придумать концепцию с нуля, включая идеи для первых публикаций, стилистику и подачу.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>Как строится оплата?</span>
+            <span class="faq-plus"></span>
+          </div>
+          <div class="faq-a">
+            <p class="faq-a-inner">Обсуждается индивидуально в зависимости от формата — разовая стратегическая сессия, сопровождение проекта или постоянное партнёрство.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>Как понять, подойдём ли мы друг другу?</span>
+            <span class="faq-plus"></span>
+          </div>
+          <div class="faq-a">
+            <p class="faq-a-inner">Напишите в Telegram — первый разговор бесплатный и ни к чему не обязывает. Я честно скажу, если проект не в моей зоне экспертизы или если вижу более подходящее решение.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-label">
+      <span class="contact-dot"></span>
+      Готов к работе
+    </div>
+    <h2 class="contact-heading reveal">НАЧНЁМ?</h2>
+    <p class="contact-sub reveal">Напишите в Telegram — расскажите о проекте, остальное обсудим.</p>
+    <a href="https://t.me/Aleksvasiutin" target="_blank" class="contact-btn reveal">
+      <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/></svg>
+      Написать в Telegram
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-logo">ALEKSEY<span>.</span></span>
+    <span class="footer-copy">© 2025 · Медиапродюсер</span>
+  </div>
+</footer>
+
+<script>
+// FAQ accordion
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const answer = item.querySelector('.faq-a');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => {
+    i.classList.remove('open');
+    i.querySelector('.faq-a').style.maxHeight = '0';
+  });
+  if (!isOpen) {
+    item.classList.add('open');
+    answer.style.maxHeight = answer.scrollHeight + 'px';
+  }
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
